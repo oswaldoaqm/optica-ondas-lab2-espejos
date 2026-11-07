@@ -2,3 +2,6 @@ numpy
 pandas
 matplotlib
 jupyter
+
+# Solo para generar_pdfs.py
+playwright
