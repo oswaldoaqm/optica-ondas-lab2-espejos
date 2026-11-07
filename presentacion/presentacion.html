@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Laboratorio 2 · Espejos esféricos · Grupo VI</title>
+<style>
+  @font-face { font-family: "Gilda"; src: url("recursos/GildaDisplay-Regular.ttf"); }
+  @font-face { font-family: "DMSerif"; src: url("recursos/DMSerifDisplay-Regular.ttf"); }
+  @page { size: 1920px 1080px; margin: 0; }
+  :root { --tinta: #474747; --suave: #6b6b6b; --navy: #0d1f4a; --bala: #cbd2db; --linea: #4a4a4a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; }
+  body { font-family: "Gilda", "DejaVu Serif", serif; color: var(--tinta); }
+  .slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; break-after: page;
+           background-size: cover; padding: 70px 90px; }
+  .seda { background-image: url("recursos/fondo_seda.png"); }
+  .crema { background-image: url("recursos/fondo_crema.png"); }
+  .titulo { font-size: 92px; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.05; margin-bottom: 46px; }
+  .divisor { display: flex; align-items: center; justify-content: center; height: 100%; text-align: center;
+             font-size: 190px; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.1; }
+  sub { font-size: 0.62em; vertical-align: -0.22em; line-height: 0; }
+  .balas { list-style: none; }
+  .balas li { position: relative; padding-left: 70px; font-size: 44px; line-height: 1.3; margin-bottom: 34px; }
+  .balas li::before { content: ""; position: absolute; left: 0; top: 0.22em; width: 40px; height: 40px;
+                      border-radius: 50%; background: var(--bala); }
+  .balas.chicas li { font-size: 38px; margin-bottom: 26px; padding-left: 60px; }
+  .balas.chicas li::before { width: 34px; height: 34px; }
+  .tarjeta { background: #fff; padding: 18px; }
+  .tarjeta img { display: block; width: 100%; }
+  .fila { display: flex; gap: 60px; }
+  table { border-collapse: collapse; font-family: "DejaVu Sans", sans-serif; color: #2a2a2a; }
+  th { font-weight: bold; text-align: right; padding: 12px 22px; border-bottom: 3px solid #2a2a2a; }
+  td { text-align: right; padding: 10px 22px; font-variant-numeric: tabular-nums; }
+  tbody tr:nth-child(odd) td { background: #ececec; }
+  th:first-child, td:first-child { text-align: left; }
+  .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 6px; }
+  .frac span:first-child { border-bottom: 3px solid currentColor; padding: 0 10px 4px; }
+  .frac span:last-child { padding: 4px 10px 0; }
+  .eq { font-size: 64px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .caja-eq { background: rgba(255,255,255,0.75); border: 2px solid #dcdcdc; padding: 34px 40px 30px; text-align: center; flex: 1; }
+  .caja-eq .nombre { font-size: 34px; color: var(--suave); margin-top: 22px; }
+  .navy { background: var(--navy); color: #fff; text-transform: uppercase; letter-spacing: 0.02em;
+          font-family: "DMSerif"; font-size: 44px; text-align: center; padding: 22px 10px; }
+  .pie-foto { font-size: 36px; text-align: center; margin-top: 16px; }
+  .foto { width: 100%; object-fit: cover; display: block; }
+</style>
+</head>
+<body>
+
+<!-- 1. Portada -->
+<section class="slide seda" style="padding: 0;">
+  <div style="position:absolute; left:258px; top:108px; font-size:40px;">Óptica y Ondas</div>
+  <div style="position:absolute; right:178px; top:108px; font-size:40px;">Grupo VI</div>
+  <div style="position:absolute; left:233px; right:153px; top:168px; border-top:2px solid var(--linea);"></div>
+  <div style="position:absolute; left:0; right:0; top:205px; text-align:center; font-size:76px; letter-spacing:0.08em;">FORMACIÓN DE IMÁGENES EN</div>
+  <div style="position:absolute; left:0; right:0; top:330px; text-align:center; font-size:250px; line-height:1.1; letter-spacing:0.02em;">ESPEJOS<br>ESFÉRICOS</div>
+  <div style="position:absolute; left:233px; right:153px; top:945px; border-top:2px solid var(--linea);"></div>
+</section>
+
+<!-- 2 -->
+<section class="slide seda"><div class="divisor">Introducción</div></section>
+
+<!-- 3. Misterio -->
+<section class="slide seda" style="text-align:center; padding-top:120px;">
+  <div style="font-size:62px; line-height:1.3;">Con las mismas diez mediciones calculamos<br>la distancia focal de dos maneras</div>
+  <div class="fila" style="justify-content:center; gap:220px; margin-top:90px;">
+    <div><div style="font-size:200px; line-height:1;">19.9 cm</div><div style="font-size:40px; margin-top:26px; color:var(--suave);">con la ecuación del espejo</div></div>
+    <div><div style="font-size:200px; line-height:1;">21.2 cm</div><div style="font-size:40px; margin-top:26px; color:var(--suave);">con el ajuste de M contra d<sub>i</sub></div></div>
+  </div>
+  <div style="font-size:96px; margin-top:110px; color:var(--navy);">¿Cuál dice la verdad?</div>
+</section>
+
+<!-- 4. Objetivo -->
+<section class="slide crema">
+  <div class="titulo">Objetivo y conclusión</div>
+  <div class="fila" style="gap:90px; margin-top:40px;">
+    <div style="flex:1;">
+      <div class="navy" style="margin-bottom:44px;">Objetivo</div>
+      <div style="font-size:48px; line-height:1.4;">Analizar las imágenes que forma un espejo esférico y medir la distancia focal y el radio de curvatura de su cara cóncava.</div>
+    </div>
+    <div style="flex:1;">
+      <div class="navy" style="margin-bottom:44px;">Conclusión principal</div>
+      <div style="font-size:48px; line-height:1.4;">La cara cóncava cumple la ecuación del espejo con f = 19.9 cm y R = 39.7 cm, a menos de 1 % del fabricante. La convexa siempre da una imagen virtual.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Conceptos clave -->
+<section class="slide seda" style="padding-top:60px;">
+  <div style="font-family:'DMSerif'; font-size:150px; text-align:center; line-height:1;">Conceptos clave</div>
+  <div class="fila" style="gap:0; margin-top:90px;">
+    <div style="flex:1; padding:0 50px; border-right:2px solid #d4d4d4;">
+      <div class="navy">Espejo</div>
+      <div style="font-family:'DMSerif'; color:var(--navy); font-size:64px; line-height:1.55; margin:40px 0 0 40px;">Cóncavo<br>Convexo<br>Foco</div>
+    </div>
+    <div style="flex:1; padding:0 50px; border-right:2px solid #d4d4d4;">
+      <div class="navy">Imagen</div>
+      <div style="font-family:'DMSerif'; color:var(--navy); font-size:64px; line-height:1.55; margin:40px 0 0 40px;">Real<br>Virtual<br>Aumento</div>
+    </div>
+    <div style="flex:1; padding:0 50px;">
+      <div class="navy" style="background:#1f2d3d;">Método</div>
+      <div style="font-family:'DMSerif'; color:var(--navy); font-size:58px; line-height:1.7; margin:40px 0 0 30px;">Trazado de rayos<br>Ecuación del espejo<br>Ajuste lineal</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Fundamento -->
+<section class="slide crema">
+  <div class="titulo">Fundamento teórico</div>
+  <div class="fila" style="gap:44px;">
+    <div class="caja-eq"><div class="eq"><span class="frac"><span>1</span><span>d<sub>0</sub></span></span>+<span class="frac"><span>1</span><span>d<sub>i</sub></span></span>=<span class="frac"><span>1</span><span>f</span></span></div><div class="nombre">ecuación del espejo</div></div>
+    <div class="caja-eq"><div class="eq">M =<span class="frac"><span>h<sub>i</sub></span><span>h<sub>o</sub></span></span>= −<span class="frac"><span>d<sub>i</sub></span><span>d<sub>0</sub></span></span></div><div class="nombre">aumento</div></div>
+    <div class="caja-eq"><div class="eq">f =<span class="frac"><span>R</span><span>2</span></span></div><div class="nombre">foco y radio</div></div>
+  </div>
+  <div style="margin-top:54px; display:flex; align-items:center; gap:60px;">
+    <div style="font-size:44px; line-height:1.4; flex:1;">Juntando las dos primeras, el aumento depende linealmente de d<sub>i</sub>: una recta de pendiente −1/f e intercepto 1.</div>
+    <div class="caja-eq" style="flex:0 0 640px; border-color:var(--navy);"><div class="eq" style="font-size:72px;">M = 1 −<span class="frac"><span>d<sub>i</sub></span><span>f</span></span></div></div>
+  </div>
+  <div style="margin-top:44px; font-size:34px; color:var(--suave);">f &gt; 0 cóncavo · f &lt; 0 convexo · d<sub>i</sub> &gt; 0 imagen real · d<sub>i</sub> &lt; 0 imagen virtual · M &lt; 0 imagen invertida</div>
+</section>
+
+<!-- 7. Equipo -->
+<section class="slide crema">
+  <div class="titulo">Métodos: equipo utilizado</div>
+  <div class="fila" style="gap:70px;">
+    <ol style="flex:1; font-size:46px; line-height:1.25; padding-left:70px; margin-top:10px;">
+      <li style="margin-bottom:38px;">Riel óptico con escala</li>
+      <li style="margin-bottom:38px;">Fuente de luz con flecha de 2 cm</li>
+      <li style="margin-bottom:38px;">Soporte para pantalla</li>
+      <li style="margin-bottom:38px;">Soportes deslizantes</li>
+      <li style="margin-bottom:38px;">Espejo cóncavo-convexo de doble cara, f = 20 cm</li>
+      <li>Regla de 30 cm y hojas bond</li>
+    </ol>
+    <div style="flex:0 0 620px;"><img class="foto" src="../fotos/01_montaje_banco_optico.jpeg" style="height:800px; margin-top:-30px;" alt="Montaje en el riel óptico"></div>
+  </div>
+</section>
+
+<!-- 8. Procedimiento -->
+<section class="slide crema">
+  <div class="titulo">Métodos: procedimiento</div>
+  <div class="fila" style="gap:56px;">
+    <div style="flex:1;">
+      <div style="font-size:46px; letter-spacing:0.03em; margin-bottom:22px;">1. TRAZADO DE RAYOS</div>
+      <img class="foto" src="../fotos/03_trazado_de_rayos.jpeg" style="height:360px; object-position:50% 70%;" alt="Trazado de rayos">
+      <ul class="balas chicas" style="margin-top:32px;">
+        <li>Apéndices A y B, antes de medir</li>
+        <li>Cinco casos del cóncavo y tres del convexo</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:46px; letter-spacing:0.03em; margin-bottom:22px;">2. ESPEJO CÓNCAVO</div>
+      <img class="foto" src="../fotos/01_montaje_banco_optico.jpeg" style="height:360px; object-position:50% 62%;" alt="Medición con el espejo cóncavo">
+      <ul class="balas chicas" style="margin-top:32px;">
+        <li>Flecha en 0 cm del riel</li>
+        <li>Cuadro 1: diez posiciones de 45 a 91 cm</li>
+        <li>Cuadro 2: d<sub>0</sub> = 50, 40, 35 y 10 cm</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:46px; letter-spacing:0.03em; margin-bottom:22px;">3. ESPEJO CONVEXO</div>
+      <img class="foto" src="../fotos/05_convexo_d0_30cm.jpeg" style="height:360px; object-position:50% 40%;" alt="Espejo convexo">
+      <ul class="balas chicas" style="margin-top:32px;">
+        <li>Mismo espejo, volteado</li>
+        <li>d<sub>0</sub> = 50, 30 y 10 cm</li>
+        <li>Búsqueda de la imagen con la pantalla</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide seda"><div class="divisor">Resultados</div></section>
+
+<!-- 10. Cuadro 1 -->
+<section class="slide crema">
+  <div class="titulo">Cuadro 1: diez posiciones</div>
+  <div class="fila" style="gap:70px; align-items:flex-start;">
+    <div class="tarjeta" style="padding:10px 18px;">
+      <table style="font-size:30px;">
+        <thead><tr><th>N°</th><th>d<sub>0</sub> (cm)</th><th>d<sub>i</sub> (cm)</th><th>h<sub>i</sub> (cm)</th><th>M</th><th>f (cm)</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>52.0</td><td>32.0</td><td>1.1</td><td>−0.55</td><td>19.81</td></tr>
+          <tr><td>2</td><td>45.0</td><td>35.0</td><td>1.6</td><td>−0.80</td><td>19.69</td></tr>
+          <tr><td>3</td><td>48.0</td><td>34.0</td><td>1.4</td><td>−0.70</td><td>19.90</td></tr>
+          <tr><td>4</td><td>57.0</td><td>31.0</td><td>1.1</td><td>−0.55</td><td>20.08</td></tr>
+          <tr><td>5</td><td>62.0</td><td>29.0</td><td>1.0</td><td>−0.50</td><td>19.76</td></tr>
+          <tr><td>6</td><td>65.5</td><td>28.5</td><td>0.9</td><td>−0.45</td><td>19.86</td></tr>
+          <tr><td>7</td><td>70.0</td><td>28.0</td><td>0.8</td><td>−0.40</td><td>20.00</td></tr>
+          <tr><td>8</td><td>73.0</td><td>27.0</td><td>0.8</td><td>−0.40</td><td>19.71</td></tr>
+          <tr><td>9</td><td>79.0</td><td>27.0</td><td>0.7</td><td>−0.35</td><td>20.12</td></tr>
+          <tr><td>10</td><td>91.0</td><td>25.0</td><td>0.6</td><td>−0.30</td><td>19.61</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="balas" style="flex:1; margin-top:20px;">
+      <li>Las diez imágenes: reales, invertidas y reducidas</li>
+      <li>f = d<sub>0</sub>·d<sub>i</sub> / (d<sub>0</sub> + d<sub>i</sub>) en cada fila: de 19.61 a 20.12 cm</li>
+      <li>Promedio: f = 19.85 ± 0.05 cm</li>
+      <li>Error frente a 20 cm: 0.7 %</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 11. Gráfica -->
+<section class="slide seda">
+  <div class="fila" style="gap:60px; align-items:center; height:100%;">
+    <div class="tarjeta" style="flex:0 0 1140px;"><img src="../figuras/M_vs_di_ajuste.png" alt="Ajuste de M contra di"></div>
+    <ul class="balas" style="flex:1;">
+      <li>Ajuste: M = −0.0471 d<sub>i</sub> + 0.896</li>
+      <li>R² = 0.958</li>
+      <li>f = 21.2 ± 1.6 cm</li>
+      <li>R = 42.5 ± 3.1 cm</li>
+      <li>La teoría con f = 20 cm se separa 0.03 como máximo</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 12. Cuadro 2 -->
+<section class="slide crema">
+  <div class="titulo">Cuadro 2: cuatro casos</div>
+  <div class="tarjeta" style="padding:12px 20px;">
+    <table style="font-size:32px; width:100%;">
+      <thead><tr><th>Caso</th><th>d<sub>0</sub> (cm)</th><th>d<sub>i</sub> medido</th><th>d<sub>i</sub> teórico</th><th>M estimado</th><th>M teórico</th><th>Diferencia d<sub>i</sub></th></tr></thead>
+      <tbody>
+        <tr><td>d<sub>0</sub> &gt; R</td><td>50</td><td>33.0</td><td>33.3</td><td>−0.70</td><td>−0.67</td><td>1.0 %</td></tr>
+        <tr><td>d<sub>0</sub> = R</td><td>40</td><td>40.0</td><td>40.0</td><td>−1.00</td><td>−1.00</td><td>0 %</td></tr>
+        <tr><td>f &lt; d<sub>0</sub> &lt; R</td><td>35</td><td>42.0</td><td>46.7</td><td>−1.25</td><td>−1.33</td><td>10.0 %</td></tr>
+        <tr><td>d<sub>0</sub> &lt; f</td><td>10</td><td>no se proyecta</td><td>−20.0</td><td>—</td><td>+2.00</td><td>no aplica</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="balas" style="margin-top:60px;">
+    <li>El signo y el tamaño estimados coinciden con la teoría en los tres casos reales</li>
+    <li>Con d<sub>0</sub> &lt; f la imagen no apareció en la pantalla: d<sub>i</sub> teórico negativo</li>
+  </ul>
+</section>
+
+<!-- 13. Convexo -->
+<section class="slide crema">
+  <div class="titulo">Espejo convexo</div>
+  <div class="fila" style="gap:50px;">
+    <div style="flex:1;"><img class="foto" src="../fotos/04_convexo_d0_50cm.jpeg" style="height:560px; object-position:50% 25%;" alt="Convexo a 50 cm"><div class="pie-foto">d<sub>0</sub> = 50 cm · M teórico 0.29</div></div>
+    <div style="flex:1;"><img class="foto" src="../fotos/05_convexo_d0_30cm.jpeg" style="height:560px; object-position:50% 40%;" alt="Convexo a 30 cm"><div class="pie-foto">d<sub>0</sub> = 30 cm · M teórico 0.40</div></div>
+    <div style="flex:1;"><img class="foto" src="../fotos/06_convexo_d0_10cm.jpeg" style="height:560px; object-position:50% 38%;" alt="Convexo a 10 cm"><div class="pie-foto">d<sub>0</sub> = 10 cm · M teórico 0.67</div></div>
+  </div>
+  <div style="text-align:center; font-size:46px; margin-top:44px;">En ninguna posición se formó imagen en la pantalla: la flecha solo se ve dentro del espejo</div>
+</section>
+
+<!-- 14 -->
+<section class="slide seda"><div class="divisor">Discusión</div></section>
+
+<!-- 15. Rayos cóncavo -->
+<section class="slide crema">
+  <div class="titulo" style="font-size:68px; white-space:nowrap;">Observado frente a los diagramas</div>
+  <div class="fila" style="gap:34px;">
+    <div style="flex:1;">
+      <div style="font-size:42px; text-align:center; margin-bottom:16px;">d<sub>0</sub> &gt; R</div>
+      <div class="tarjeta" style="padding:8px;"><img src="recursos/rayos_A_c.png" style="height:300px; object-fit:contain;" alt="Diagrama d0 mayor que R"></div>
+      <div style="font-size:34px; text-align:center; margin-top:20px; line-height:1.35;">Real, invertida, reducida<br>Medido: M ≈ −0.7</div>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:42px; text-align:center; margin-bottom:16px;">d<sub>0</sub> = R</div>
+      <div class="tarjeta" style="padding:8px;"><img src="recursos/rayos_A_d.png" style="height:300px; object-fit:contain;" alt="Diagrama d0 igual a R"></div>
+      <div style="font-size:34px; text-align:center; margin-top:20px; line-height:1.35;">Real, invertida, igual tamaño<br>Medido: M ≈ −1</div>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:42px; text-align:center; margin-bottom:16px;">f &lt; d<sub>0</sub> &lt; R</div>
+      <div class="tarjeta" style="padding:8px;"><img src="recursos/rayos_A_b.png" style="height:300px; object-fit:contain;" alt="Diagrama f menor que d0 menor que R"></div>
+      <div style="font-size:34px; text-align:center; margin-top:20px; line-height:1.35;">Real, invertida, ampliada<br>Medido: M ≈ −1.25</div>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:42px; text-align:center; margin-bottom:16px;">d<sub>0</sub> &lt; f</div>
+      <div class="tarjeta" style="padding:8px;"><img src="recursos/rayos_A_e.png" style="height:300px; object-fit:contain;" alt="Diagrama d0 menor que f"></div>
+      <div style="font-size:34px; text-align:center; margin-top:20px; line-height:1.35;">Virtual, derecha, ampliada<br>Medido: no se proyecta</div>
+    </div>
+  </div>
+  <div style="text-align:center; font-size:42px; margin-top:52px;">Los cuatro casos coinciden con nuestros diagramas del apéndice A</div>
+</section>
+
+<!-- 16. Cóncavo vs convexo -->
+<section class="slide seda">
+  <div class="titulo">Cóncavo frente a convexo</div>
+  <div class="fila" style="gap:30px;">
+    <div class="tarjeta" style="flex:1; padding:8px;"><img src="recursos/rayos_B_a.png" style="height:290px; object-fit:contain;" alt="Convexo d0 mayor que R"></div>
+    <div class="tarjeta" style="flex:1; padding:8px;"><img src="recursos/rayos_B_b.png" style="height:290px; object-fit:contain;" alt="Convexo f menor que d0 menor que R"></div>
+    <div class="tarjeta" style="flex:1; padding:8px;"><img src="recursos/rayos_B_c.png" style="height:290px; object-fit:contain;" alt="Convexo d0 menor que f"></div>
+  </div>
+  <div class="fila" style="gap:80px; margin-top:56px;">
+    <div style="flex:1;">
+      <div class="navy" style="margin-bottom:30px;">Cóncavo</div>
+      <div style="font-size:42px; line-height:1.4;">Real o virtual, reducida o ampliada, según dónde esté el objeto</div>
+    </div>
+    <div style="flex:1;">
+      <div class="navy" style="background:#1f2d3d; margin-bottom:30px;">Convexo</div>
+      <div style="font-size:42px; line-height:1.4;">Siempre virtual, derecha y reducida: M teórico de 0.29, 0.40 y 0.67</div>
+    </div>
+  </div>
+</section>
+
+<!-- 17. Interpretación -->
+<section class="slide seda">
+  <div class="fila" style="gap:70px; align-items:center; height:100%;">
+    <div class="tarjeta" style="flex:0 0 820px;"><img src="../figuras/M_alturas_vs_distancias.png" alt="M con alturas frente a M con distancias"></div>
+    <div style="flex:1;">
+      <div style="font-size:68px; line-height:1.1; margin-bottom:50px; letter-spacing:0.02em; white-space:nowrap;">¿POR QUÉ 21.2 Y NO 20?</div>
+      <ul class="balas chicas">
+        <li>h<sub>i</sub> de 0.6 a 1.6 cm con regla de 1 mm: 3 % a 8 % por punto</li>
+        <li>3 de 10 filas fuera de su barra de error; la peor, d<sub>0</sub> = 52 cm</li>
+        <li>d<sub>i</sub> solo entre 25 y 35 cm: pendiente con 7 % de incertidumbre</li>
+        <li>Con el intercepto fijo en 1: f = 19.8 ± 0.1 cm</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 18. Más allá -->
+<section class="slide seda">
+  <div class="fila" style="gap:60px; align-items:center; height:100%;">
+    <div class="tarjeta" style="flex:0 0 1100px;"><img src="../figuras/inversos_1_di_vs_1_d0.png" alt="1/di contra 1/d0"></div>
+    <div style="flex:1;">
+      <div style="font-size:72px; line-height:1.1; margin-bottom:50px; letter-spacing:0.02em;">MÁS ALLÁ DE LA GUÍA</div>
+      <ul class="balas chicas">
+        <li>Si la ecuación se cumple, 1/d<sub>i</sub> contra 1/d<sub>0</sub> tiene pendiente −1</li>
+        <li>Medido: −0.996 ± 0.042, R² = 0.986</li>
+        <li>f = 19.9 ± 0.3 cm sin usar ninguna altura</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 19. Vida diaria -->
+<section class="slide crema">
+  <div class="titulo">En la vida diaria</div>
+  <div class="fila" style="gap:90px; margin-top:20px;">
+    <div style="flex:1;">
+      <div class="navy" style="margin-bottom:44px;">Espejo de maquillaje · cóncavo</div>
+      <ul class="balas">
+        <li>Cara a 10 cm, dentro del foco</li>
+        <li>La ecuación da imagen virtual y derecha, M = +2</li>
+        <li>Es la última fila de nuestro Cuadro 2</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <div class="navy" style="background:#1f2d3d; margin-bottom:44px;">Retrovisor y tienda · convexo</div>
+      <ul class="balas">
+        <li>Objeto a 50 cm: M teórico de 0.29</li>
+        <li>Entra más escena en el mismo espejo</li>
+        <li>Los objetos se ven más pequeños y parecen más lejos</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 20. Errores -->
+<section class="slide crema">
+  <div class="titulo">Fuentes de error y mejoras</div>
+  <div class="fila" style="gap:90px;">
+    <div style="flex:1;">
+      <div class="navy" style="margin-bottom:40px;">Fuentes de error</div>
+      <ul class="balas chicas">
+        <li>Regla de 1 mm sobre alturas pequeñas</li>
+        <li>El enfoque depende de quien mira</li>
+        <li>Bordes difusos de la imagen en el papel</li>
+        <li>Imagen sobre o detrás de la fuente con d<sub>0</sub> = 40 y 35 cm</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <div class="navy" style="background:#1f2d3d; margin-bottom:40px;">Mejoras</div>
+      <ul class="balas chicas">
+        <li>Calibrador, o foto de la pantalla con escala</li>
+        <li>Dos observadores por enfoque y promedio</li>
+        <li>Inclinar el espejo para recoger la imagen al costado</li>
+        <li>Posiciones entre f y R para ampliar el rango de d<sub>i</sub></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 21. Conclusión -->
+<section class="slide seda" style="text-align:center; padding-top:90px;">
+  <div style="font-size:96px; color:var(--navy);">¿Cuál dice la verdad?</div>
+  <div style="display:grid; grid-template-columns: 560px 760px; justify-content:center; column-gap:60px; row-gap:26px; margin-top:70px; text-align:left; align-items:baseline;">
+    <div style="font-size:84px; text-align:right;">19.85 ± 0.05</div><div style="font-size:42px; color:var(--suave);">cm · ecuación del espejo</div>
+    <div style="font-size:84px; text-align:right;">19.9 ± 0.3</div><div style="font-size:42px; color:var(--suave);">cm · recta de los inversos</div>
+    <div style="font-size:84px; text-align:right;">21.2 ± 1.6</div><div style="font-size:42px; color:var(--suave);">cm · ajuste de M contra d<sub>i</sub></div>
+  </div>
+  <div style="font-size:50px; line-height:1.4; margin:80px auto 0; max-width:1560px;">Las dos: 21.2 ± 1.6 incluye a 19.85. El método que usa alturas depende de la regla y es unas treinta veces menos preciso. La cara cóncava cumple la ecuación del espejo con f = 19.9 cm, a menos de 1 % de los 20 cm del fabricante.</div>
+</section>
+
+</body>
+</html>
