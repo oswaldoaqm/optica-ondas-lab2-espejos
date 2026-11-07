@@ -2,4 +2,4 @@ caso,d0_cm,di_exp_cm,M_estimado
 d0 > R,50,33,-0.7
 d0 = R,40,40,-1
 f < d0 < R,35,42,-1.25
-d0 < f,15,,
+d0 < f,10,,
