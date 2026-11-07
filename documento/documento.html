@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Laboratorio 2 · Formación de imágenes en espejos esféricos · Grupo 6</title>
+<style>
+  @page { size: A4; margin: 22mm 20mm 24mm 20mm; }
+  :root { --navy: #1d3a5c; --gris: #5d6b7a; --borde: #c9d1db; --fila: #edf1f5; --tinta: #1f2328; }
+  * { box-sizing: border-box; }
+  body { font-family: "DejaVu Sans", sans-serif; font-size: 10.2pt; line-height: 1.5; color: var(--tinta); margin: 0; }
+  p { text-align: justify; margin: 0 0 9pt; orphans: 3; widows: 3; }
+  h1 { color: var(--navy); font-size: 17pt; margin: 0 0 10pt; line-height: 1.25; }
+  h2 { color: var(--navy); font-size: 12.5pt; margin: 14pt 0 6pt; }
+  .nueva { break-before: page; }
+  h1, h2 { break-after: avoid; }
+  table, figure, tr, .formula { break-inside: avoid; }
+  .portada { text-align: center; padding-top: 30mm; }
+  .portada h1 { font-size: 26pt; margin-bottom: 12pt; }
+  .portada .sub { color: var(--gris); font-size: 12.5pt; line-height: 1.45; margin-bottom: 26pt; }
+  table { width: 100%; border-collapse: collapse; margin: 6pt 0 12pt; font-size: 9pt; text-align: left; }
+  th { background: var(--navy); color: #fff; font-weight: bold; padding: 6pt 7pt; border: 1px solid var(--navy); }
+  td { padding: 5pt 7pt; border: 1px solid var(--borde); vertical-align: top; }
+  tbody tr:nth-child(even) td { background: var(--fila); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.c, th.c { text-align: center; }
+  .nota { color: var(--gris); font-size: 9pt; padding: 0 12pt; }
+  .falta { color: #9a3412; font-weight: bold; }
+  a { color: #1f5fa8; text-decoration: none; }
+  .formula { font-family: "DejaVu Sans Mono", monospace; text-align: center; margin: 6pt 0 10pt; font-size: 9.6pt; }
+  figure { margin: 8pt 0 12pt; text-align: center; break-inside: avoid; }
+  figure img { max-width: 100%; }
+  figcaption { color: var(--gris); font-size: 8.6pt; margin-top: 4pt; padding: 0 16pt; line-height: 1.4; }
+  .fila3 { display: flex; gap: 8pt; justify-content: center; }
+  .fila3 img { width: 31.5%; height: 64mm; object-fit: cover; }
+  .fila2 { display: flex; gap: 10pt; justify-content: center; }
+  .fila2 img { width: 48.5%; }
+  .angosta { max-width: 78%; margin-left: auto; margin-right: auto; }
+  .cierre { color: var(--gris); font-size: 9pt; margin-top: 18pt; }
+</style>
+</head>
+<body>
+
+<section class="portada">
+  <h1>Formación de imágenes en<br>espejos cóncavos y convexos</h1>
+  <div class="sub">Laboratorio 2 &nbsp;·&nbsp; Óptica y Ondas &nbsp;·&nbsp; Departamento de Ciencias<br>Universidad de Ingeniería y Tecnología &nbsp;—&nbsp; UTEC, 2026-II</div>
+
+  <table>
+    <thead><tr><th style="width:52%">Grupo 6 — Integrantes</th><th>Correo institucional</th></tr></thead>
+    <tbody>
+      <tr><td>Perez Torres, Christopher Renato</td><td>christopher.perez@utec.edu.pe</td></tr>
+      <tr><td>Quispe Monzon, Oswaldo Alejandro</td><td>oswaldo.quispe@utec.edu.pe</td></tr>
+      <tr><td>Soto Cristobal, Camilo Ernesto</td><td>camilo.soto@utec.edu.pe</td></tr>
+      <tr><td>Teran Taica, Mauricio Eduardo</td><td>mauricio.teran@utec.edu.pe</td></tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead><tr><th style="width:35%">Enlaces del entregable</th><th></th></tr></thead>
+    <tbody>
+      <tr><td>Video de explicación (YouTube)</td><td id="video"><span class="falta">[FALTA: enlace de YouTube]</span></td></tr>
+      <tr><td>Datos experimentales y análisis</td><td><a href="https://github.com/oswaldoaqm/optica-ondas-lab2-espejos">https://github.com/oswaldoaqm/optica-ondas-lab2-espejos</a></td></tr>
+    </tbody>
+  </table>
+
+  <p class="nota">Datos tomados el 22 y el 29 de octubre de 2026. Este documento reúne las gráficas, los cálculos y las fotografías de la experiencia, y sirve de referencia para la explicación desarrollada en el video.</p>
+</section>
+
+<section class="nueva">
+  <h1>1. Objetivo y conclusión principal</h1>
+  <p><b>Objetivo.</b> Analizar las imágenes que forma un espejo esférico y determinar experimentalmente la distancia focal y el radio de curvatura de su cara cóncava, comparando lo observado con el trazado de rayos.</p>
+  <p><b>Hipótesis.</b> Si el espejo cumple la ecuación 1/d₀ + 1/dᵢ = 1/f, el aumento M debe variar linealmente con la distancia imagen, con pendiente −1/f e intercepto 1. Con las mismas mediciones, 1/dᵢ contra 1/d₀ debe ser una recta de pendiente −1.</p>
+  <p><b>Conclusión principal.</b> La cara cóncava cumple la ecuación del espejo. Usando solo distancias, f = 19.85 ± 0.05 cm, a 0.7 % del valor del fabricante, y R = 39.7 ± 0.1 cm. El ajuste de M contra dᵢ que pide la guía da f = 21.2 ± 1.6 cm y R = 42.5 ± 3.1 cm con R² = 0.958: es compatible con 20 cm, pero unas treinta veces menos preciso, porque depende de alturas de imagen de 0.6 a 1.6 cm medidas con una regla de 1 mm.</p>
+  <p>Como resultado adicional, la recta de 1/dᵢ contra 1/d₀ tiene pendiente −0.996 ± 0.042, a 0.4 % del valor teórico, lo que comprueba la ecuación del espejo sin usar ninguna altura. La cara convexa no formó imagen en la pantalla en ninguna de las tres posiciones probadas, como predicen los diagramas de rayos para una imagen virtual.</p>
+
+  <h1 style="margin-top:20pt">2. Parámetros del sistema</h1>
+  <table>
+    <thead><tr><th style="width:42%">Magnitud</th><th style="width:22%">Valor</th><th>Origen</th></tr></thead>
+    <tbody>
+      <tr><td>Distancia focal, f</td><td>20 cm</td><td>valor del fabricante</td></tr>
+      <tr><td>Radio de curvatura, R = 2f</td><td>40 cm</td><td>ecuación (1) de la guía</td></tr>
+      <tr><td>Altura del objeto, hₒ</td><td>2.0 cm</td><td>medida con regla</td></tr>
+      <tr><td>Resolución de la regla</td><td>1 mm (± 0.05 cm)</td><td>regla de 30 cm</td></tr>
+      <tr><td>f con la ecuación del espejo</td><td><b>19.85 ± 0.05 cm</b></td><td>promedio de las 10 filas del Cuadro 1</td></tr>
+      <tr><td>R con la ecuación del espejo</td><td>39.7 ± 0.1 cm</td><td>R = 2f</td></tr>
+      <tr><td>f del ajuste de M contra dᵢ</td><td>21.2 ± 1.6 cm</td><td>f = −1/pendiente</td></tr>
+      <tr><td>R del ajuste de M contra dᵢ</td><td>42.5 ± 3.1 cm</td><td>R = 2f</td></tr>
+      <tr><td>f con intercepto fijo en 1</td><td>19.8 ± 0.1 cm</td><td>ajuste de un solo parámetro</td></tr>
+      <tr><td>f de la recta 1/dᵢ contra 1/d₀</td><td>19.9 ± 0.3 cm</td><td>f = 1/intercepto</td></tr>
+    </tbody>
+  </table>
+  <p>La flecha de la fuente se colocó en 0 cm del riel, así que la lectura del riel en la posición del espejo es directamente la distancia objeto d₀.</p>
+</section>
+
+<section class="nueva">
+  <h1>3. Cálculos efectuados</h1>
+  <h2>3.1. Ecuación del espejo y aumento</h2>
+  <p>La posición de la imagen y su tamaño se relacionan con la distancia focal mediante las ecuaciones (2) y (3) de la guía:</p>
+  <div class="formula">1/d₀ + 1/dᵢ = 1/f &nbsp;&nbsp;⟺&nbsp;&nbsp; dᵢ = d₀·f / (d₀ − f) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; M = hᵢ/hₒ = −dᵢ/d₀</div>
+  <p>Con la convención del apéndice D.3: f es positiva para el espejo cóncavo y negativa para el convexo; dᵢ positiva indica imagen real y negativa, virtual; M negativa indica imagen invertida. Despejando f de la primera ecuación se obtiene la distancia focal de cada fila del Cuadro 1:</p>
+  <div class="formula">f = d₀·dᵢ / (d₀ + dᵢ)</div>
+
+  <h2>3.2. Por qué M contra dᵢ es una recta</h2>
+  <p>Reemplazando 1/d₀ = 1/f − 1/dᵢ en la ecuación del aumento:</p>
+  <div class="formula">M = −dᵢ·(1/f − 1/dᵢ) = 1 − dᵢ/f</div>
+  <p>La gráfica de M contra dᵢ que pide la sección 3 de la guía es, por lo tanto, una recta de pendiente −1/f e intercepto 1. Por eso el ajuste es lineal: la forma la fija la teoría, no se eligió para que el R² saliera alto. De la pendiente a se obtiene f = −1/a y R = 2f; el intercepto queda como control.</p>
+
+  <h2>3.3. Prueba con los inversos de las distancias</h2>
+  <div class="formula">1/dᵢ = −(1/d₀) + 1/f</div>
+  <p>Si la ecuación del espejo se cumple, esta recta tiene pendiente −1 y su intercepto es 1/f. No usa alturas.</p>
+
+  <h2>3.4. Incertidumbres</h2>
+  <p>La altura de la imagen y la del objeto se leen con la regla, con una incertidumbre de ± 0.05 cm cada una. Para cada punto del Cuadro 1:</p>
+  <div class="formula">u(M) = |M|·√[(0.05/hᵢ)² + (0.05/hₒ)²] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u(f) = u(a)/a²</div>
+  <p>Los ajustes se hicieron por mínimos cuadrados con numpy.polyfit, que entrega la matriz de covarianza de los parámetros.</p>
+
+  <h2>3.5. Análisis realizados</h2>
+  <table>
+    <thead><tr><th style="width:30%">Análisis</th><th>Método</th><th class="c" style="width:12%">Notebook</th></tr></thead>
+    <tbody>
+      <tr><td>f por fila</td><td>f = d₀·dᵢ/(d₀ + dᵢ), promedio y error estándar de la media</td><td class="c">01</td></tr>
+      <tr><td>Ajuste de M contra dᵢ</td><td>Mínimos cuadrados lineal; f = −1/a, R = 2f</td><td class="c">01</td></tr>
+      <tr><td>Intercepto fijo</td><td>M − 1 = a·dᵢ, ajuste de un parámetro</td><td class="c">01</td></tr>
+      <tr><td>Alturas frente a distancias</td><td>hᵢ/hₒ comparado con −dᵢ/d₀ fila por fila</td><td class="c">01</td></tr>
+      <tr><td>Recta de los inversos</td><td>Ajuste de 1/dᵢ contra 1/d₀; pendiente esperada −1</td><td class="c">01</td></tr>
+      <tr><td>Casos del Cuadro 2</td><td>dᵢ y M teóricos, diferencia porcentual y tipo de imagen</td><td class="c">02</td></tr>
+      <tr><td>Espejo convexo</td><td>dᵢ y M teóricos con f = −20 cm en las tres posiciones probadas</td><td class="c">02</td></tr>
+    </tbody>
+  </table>
+  <p>Todo el código, ejecutado y con sus salidas, está disponible en el repositorio enlazado en la portada.</p>
+</section>
+
+<section style="margin-top:18pt">
+  <h1>4. Equipo experimental y procedimiento</h1>
+  <h2>4.1. Equipo utilizado</h2>
+  <table>
+    <thead><tr><th class="c" style="width:7%">N°</th><th style="width:33%">Elemento</th><th>Función en el sistema</th></tr></thead>
+    <tbody>
+      <tr><td class="c">1</td><td>Riel óptico con escala</td><td>Alinea los soportes y da las posiciones en centímetros</td></tr>
+      <tr><td class="c">2</td><td>Fuente de luz con flecha</td><td>Es el objeto: una flecha de 2 cm de alto, ubicada en 0 cm</td></tr>
+      <tr><td class="c">3</td><td>Soporte para pantalla</td><td>Sostiene la hoja de papel grueso donde se proyecta la imagen</td></tr>
+      <tr><td class="c">4</td><td>Soportes deslizantes</td><td>Permiten mover el espejo y la pantalla a lo largo del riel</td></tr>
+      <tr><td class="c">5</td><td>Espejo cóncavo-convexo de doble cara</td><td>Una cara cóncava y otra convexa; f = 20 cm según el fabricante</td></tr>
+      <tr><td class="c">6</td><td>Regla de 30 cm y hojas bond</td><td>Medir la altura de la imagen y armar la pantalla</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4.2. Montaje</h2>
+  <p>Se colocaron en el riel la fuente, el soporte para pantalla y el espejo, con la cara cóncava hacia la fuente. La pantalla se armó doblando varias veces una tira de hoja bond hasta formar una lámina gruesa. El borde de la fuente, que coincide con la posición de la flecha, se ubicó en 0 cm del riel.</p>
+
+  <h2>4.3. Toma de datos</h2>
+  <p>Antes de medir se dibujaron los diagramas de rayos de los apéndices A y B. Para el Cuadro 1 el espejo se colocó en diez posiciones entre 45 y 91 cm de la fuente, todas con d₀ &gt; R. En cada una se desplazó la pantalla hasta encontrar la imagen más nítida, se leyó la distancia imagen y se marcaron con lápiz los extremos de la imagen sobre el papel para medir su altura con la regla.</p>
+  <p>Para el Cuadro 2 se fijaron cuatro posiciones, una por caso: d₀ = 50, 40, 35 y 10 cm. En el último caso, más cerca que el foco, la imagen no apareció en la pantalla. Al final se volteó el espejo para trabajar con la cara convexa, se colocó a 50, 30 y 10 cm de la fuente y en cada posición se buscó la imagen con la pantalla.</p>
+</section>
+
+<section style="margin-top:18pt">
+  <h1>5. Fotografías del desarrollo del laboratorio</h1>
+  <figure>
+    <div class="fila3">
+      <img src="../fotos/01_montaje_banco_optico.jpeg" alt="Búsqueda de la imagen en el riel óptico">
+      <img src="../fotos/02_llenado_tabla_C.jpeg" alt="Registro de datos en el apéndice C">
+      <img src="../fotos/03_trazado_de_rayos.jpeg" alt="Trazado de los diagramas de rayos">
+    </div>
+    <figcaption>Figura 1. Izquierda: búsqueda de la imagen nítida sobre la pantalla de papel con el espejo cóncavo en el riel. Centro: registro de las mediciones en el apéndice C. Derecha: trazado de los diagramas de rayos de los apéndices A y B.</figcaption>
+  </figure>
+  <figure>
+    <div class="fila3">
+      <img src="../fotos/04_convexo_d0_50cm.jpeg" alt="Espejo convexo a 50 cm">
+      <img src="../fotos/05_convexo_d0_30cm.jpeg" alt="Espejo convexo a 30 cm">
+      <img src="../fotos/06_convexo_d0_10cm.jpeg" alt="Espejo convexo a 10 cm">
+    </div>
+    <figcaption>Figura 2. Cara convexa con el espejo a 50, 30 y 10 cm de la fuente. La flecha solo se ve reflejada dentro del espejo; en la pantalla no se formó imagen en ninguna de las tres posiciones.</figcaption>
+  </figure>
+</section>
+
+<section class="nueva">
+  <h1>6. Resultados experimentales</h1>
+  <h2>6.1. Cuadro 1: diez posiciones del espejo cóncavo</h2>
+  <table>
+    <thead><tr><th class="c">N°</th><th class="num">d₀ (cm)</th><th class="num">dᵢ (cm)</th><th class="num">hᵢ (cm)</th><th class="num">M = hᵢ/hₒ</th><th class="num">−dᵢ/d₀</th><th class="num">f (cm)</th></tr></thead>
+    <tbody>
+      <tr><td class="c">1</td><td class="num">52.0</td><td class="num">32.0</td><td class="num">1.1</td><td class="num">−0.55</td><td class="num">−0.615</td><td class="num">19.81</td></tr>
+      <tr><td class="c">2</td><td class="num">45.0</td><td class="num">35.0</td><td class="num">1.6</td><td class="num">−0.80</td><td class="num">−0.778</td><td class="num">19.69</td></tr>
+      <tr><td class="c">3</td><td class="num">48.0</td><td class="num">34.0</td><td class="num">1.4</td><td class="num">−0.70</td><td class="num">−0.708</td><td class="num">19.90</td></tr>
+      <tr><td class="c">4</td><td class="num">57.0</td><td class="num">31.0</td><td class="num">1.1</td><td class="num">−0.55</td><td class="num">−0.544</td><td class="num">20.08</td></tr>
+      <tr><td class="c">5</td><td class="num">62.0</td><td class="num">29.0</td><td class="num">1.0</td><td class="num">−0.50</td><td class="num">−0.468</td><td class="num">19.76</td></tr>
+      <tr><td class="c">6</td><td class="num">65.5</td><td class="num">28.5</td><td class="num">0.9</td><td class="num">−0.45</td><td class="num">−0.435</td><td class="num">19.86</td></tr>
+      <tr><td class="c">7</td><td class="num">70.0</td><td class="num">28.0</td><td class="num">0.8</td><td class="num">−0.40</td><td class="num">−0.400</td><td class="num">20.00</td></tr>
+      <tr><td class="c">8</td><td class="num">73.0</td><td class="num">27.0</td><td class="num">0.8</td><td class="num">−0.40</td><td class="num">−0.370</td><td class="num">19.71</td></tr>
+      <tr><td class="c">9</td><td class="num">79.0</td><td class="num">27.0</td><td class="num">0.7</td><td class="num">−0.35</td><td class="num">−0.342</td><td class="num">20.12</td></tr>
+      <tr><td class="c">10</td><td class="num">91.0</td><td class="num">25.0</td><td class="num">0.6</td><td class="num">−0.30</td><td class="num">−0.275</td><td class="num">19.61</td></tr>
+    </tbody>
+  </table>
+  <p>En las diez filas la imagen fue real, invertida y reducida: d₀ siempre fue mayor que R, y por eso M es negativo y menor que 1 en valor absoluto. La distancia focal calculada fila por fila va de 19.61 a 20.12 cm, con promedio de <b>19.85 ± 0.05 cm</b> (desviación estándar 0.17 cm, dispersión de 0.9 %). Frente a los 20 cm del fabricante, el error porcentual es de 0.7 %.</p>
+
+  <h2>6.2. Ajuste de M contra dᵢ</h2>
+  <figure class="angosta">
+    <img src="../figuras/M_vs_di_ajuste.png" alt="Aumento contra distancia imagen con ajuste lineal">
+    <figcaption>Figura 3. Aumento medido en función de la distancia imagen, con su ajuste lineal y la recta teórica para f = 20 cm. Las barras de error salen de la resolución de la regla.</figcaption>
+  </figure>
+  <table>
+    <thead><tr><th style="width:30%">Parámetro</th><th style="width:30%">Valor ajustado</th><th>Observación</th></tr></thead>
+    <tbody>
+      <tr><td>Pendiente, a</td><td>−0.0471 ± 0.0035 cm⁻¹</td><td>teoría: −1/f = −0.050 cm⁻¹</td></tr>
+      <tr><td>Intercepto, b</td><td>0.896 ± 0.104</td><td>teoría: 1</td></tr>
+      <tr><td>R²</td><td>0.958</td><td></td></tr>
+      <tr><td>f = −1/a</td><td>21.2 ± 1.6 cm</td><td>6.2 % sobre el valor del fabricante</td></tr>
+      <tr><td>R = 2f</td><td>42.5 ± 3.1 cm</td><td>teoría: 40 cm</td></tr>
+    </tbody>
+  </table>
+  <p>Se esperaba una recta decreciente: mientras más lejos del espejo se forma la imagen, más grande sale. Los datos siguen esa forma con R² = 0.958. En el rango medido, de dᵢ = 25 a 35 cm, la recta ajustada y la teórica se separan como máximo 0.03, que es del tamaño de la incertidumbre de cada punto (entre 0.026 y 0.032).</p>
+</section>
+
+<section>
+  <h2>6.3. Cuadro 2: los cuatro casos del espejo cóncavo</h2>
+  <table>
+    <thead><tr><th>Caso</th><th class="num">d₀ (cm)</th><th class="num">dᵢ medido (cm)</th><th class="num">dᵢ teórico (cm)</th><th class="num">M estimado</th><th class="num">M teórico</th><th class="num">Diferencia dᵢ</th></tr></thead>
+    <tbody>
+      <tr><td>d₀ &gt; R</td><td class="num">50</td><td class="num">33.0</td><td class="num">33.3</td><td class="num">−0.70</td><td class="num">−0.67</td><td class="num">1.0 %</td></tr>
+      <tr><td>d₀ = R</td><td class="num">40</td><td class="num">40.0</td><td class="num">40.0</td><td class="num">−1.00</td><td class="num">−1.00</td><td class="num">0 %</td></tr>
+      <tr><td>f &lt; d₀ &lt; R</td><td class="num">35</td><td class="num">42.0</td><td class="num">46.7</td><td class="num">−1.25</td><td class="num">−1.33</td><td class="num">10.0 %</td></tr>
+      <tr><td>d₀ &lt; f</td><td class="num">10</td><td class="num">no se proyecta</td><td class="num">−20.0</td><td class="num">no registrado</td><td class="num">+2.00</td><td class="num">no aplica</td></tr>
+    </tbody>
+  </table>
+  <p>En los tres casos con imagen real, el signo y el tamaño del aumento estimado a ojo coinciden con la teoría. La diferencia más grande, 10 %, está en f &lt; d₀ &lt; R. En ese caso, y también en d₀ = R, la imagen se forma sobre la fuente o detrás de ella (dᵢ teórico de 40 y 46.7 cm con el espejo a 40 y 35 cm), donde la pantalla no puede ubicarse en el mismo eje que el objeto y el punto de mejor enfoque es más difícil de encontrar. En d₀ &lt; f el dᵢ teórico es negativo: la imagen es virtual y la pantalla no puede recogerla.</p>
+
+  <h2>6.4. Espejo convexo</h2>
+  <table>
+    <thead><tr><th>Caso</th><th class="num">d₀ (cm)</th><th class="num">dᵢ teórico (cm)</th><th class="num">M teórico</th><th>Observado en la pantalla</th></tr></thead>
+    <tbody>
+      <tr><td>d₀ &gt; R</td><td class="num">50</td><td class="num">−14.3</td><td class="num">+0.29</td><td>no se formó imagen</td></tr>
+      <tr><td>f &lt; d₀ &lt; R</td><td class="num">30</td><td class="num">−12.0</td><td class="num">+0.40</td><td>no se formó imagen</td></tr>
+      <tr><td>d₀ &lt; f</td><td class="num">10</td><td class="num">−6.7</td><td class="num">+0.67</td><td>no se formó imagen</td></tr>
+    </tbody>
+  </table>
+  <p>Con f = −20 cm, la ecuación del espejo da dᵢ negativo y 0 &lt; M &lt; 1 en las tres posiciones: imagen virtual, derecha y reducida, detrás del espejo y a menos de 20 cm de él. La imagen crece cuando el espejo se acerca a la fuente, pero nunca llega al tamaño del objeto. En el laboratorio no se pudo proyectar en ninguna de las tres posiciones (figura 2).</p>
+</section>
+
+<section class="nueva">
+  <h1>7. Discusión</h1>
+  <h2>7.1. Imágenes observadas frente al trazado de rayos</h2>
+  <figure>
+    <div class="fila2">
+      <img src="../evidencias/apendice_A_concavo_firmado.jpeg" alt="Apéndice A firmado">
+      <img src="../evidencias/apendice_B_convexo_firmado.jpeg" alt="Apéndice B firmado">
+    </div>
+    <figcaption>Figura 4. Diagramas de rayos de los apéndices A (cóncavo) y B (convexo), firmados por el encargado del laboratorio.</figcaption>
+  </figure>
+  <table>
+    <thead><tr><th style="width:16%">Caso</th><th style="width:30%">Observado</th><th style="width:34%">Trazado de rayos</th><th>¿Coincide?</th></tr></thead>
+    <tbody>
+      <tr><td>d₀ &gt; R</td><td>Real, invertida y reducida (M ≈ −0.7)</td><td>Real, invertida y reducida, entre C y F</td><td>Sí</td></tr>
+      <tr><td>d₀ = R</td><td>Real, invertida, mismo tamaño (M ≈ −1)</td><td>Real, invertida, mismo tamaño, en C</td><td>Sí</td></tr>
+      <tr><td>f &lt; d₀ &lt; R</td><td>Real, invertida y ampliada (M ≈ −1.25)</td><td>Real, invertida y ampliada, más allá de C</td><td>Sí</td></tr>
+      <tr><td>d₀ &lt; f</td><td>No se proyecta en la pantalla</td><td>Virtual, derecha y ampliada, detrás del espejo</td><td>Sí: una imagen virtual no se puede proyectar</td></tr>
+    </tbody>
+  </table>
+  <p>Las diez filas del Cuadro 1 confirman además el primer caso: con d₀ entre 45 y 91 cm la imagen siempre fue real, invertida y reducida, y se formó entre 25 y 35 cm del espejo, es decir, entre C (40 cm) y F (20 cm), como en el diagrama (c) del apéndice A.</p>
+  <p>El caso d₀ = f solo se trabajó con el trazado de rayos: los rayos reflejados salen paralelos y no se forma imagen. La ecuación del espejo dice lo mismo, porque dᵢ = d₀·f/(d₀ − f) crece sin límite cuando d₀ se acerca a f.</p>
+
+  <h2>7.2. Espejo cóncavo frente a convexo</h2>
+  <p>El espejo cóncavo forma imágenes de los tres tipos según dónde esté el objeto: reales, invertidas y reducidas lejos del espejo; del mismo tamaño en C; ampliadas entre C y F; y virtuales, derechas y ampliadas dentro de la distancia focal. El convexo, en cambio, dio el mismo tipo de imagen en los tres diagramas del apéndice B: virtual, derecha y reducida, entre el espejo y su foco. En el laboratorio la pantalla no recogió imagen con la cara convexa en ninguna posición, y la flecha solo se vio reflejada dentro del espejo (figura 2). Lo observado coincide con los diagramas de los dos apéndices.</p>
+</section>
+
+<section>
+  <h2>7.3. Interpretación del gráfico y justificación del ajuste</h2>
+  <p>El ajuste lineal no se eligió por conveniencia: la sección 3.2 muestra que, si el espejo cumple la ecuación del espejo, M contra dᵢ tiene que ser una recta. El intercepto ajustado, 0.90 ± 0.10, es compatible con el 1 que predice la teoría, y la pendiente da f = 21.2 ± 1.6 cm, que incluye a 20 cm dentro de su incertidumbre.</p>
+  <p>El valor de f del ajuste es menos preciso que el obtenido fila por fila por dos razones. La primera es que depende de hᵢ, una longitud de 0.6 a 1.6 cm medida con una regla de 1 mm: cada punto lleva entre 3 % y 8 % de incertidumbre. La figura 5 compara, fila por fila, el aumento medido con alturas contra el que predicen las distancias de la misma fila. En siete filas coinciden dentro de la incertidumbre; en tres (d₀ = 52, 62 y 73 cm) no, y la de 52 cm es la que más se aleja: 1.1 cm medido contra 1.23 cm esperado. La segunda razón es el rango: como todas las posiciones del Cuadro 1 tuvieron d₀ &gt; R, la distancia imagen solo varió entre 25 y 35 cm, un brazo corto para fijar una pendiente, que quedó con 7 % de incertidumbre.</p>
+  <figure class="angosta" style="max-width:62%">
+    <img src="../figuras/M_alturas_vs_distancias.png" alt="Aumento con alturas contra aumento con distancias">
+    <figcaption>Figura 5. Aumento medido con las alturas frente al que predicen las distancias de la misma fila. La línea discontinua marca la coincidencia exacta.</figcaption>
+  </figure>
+  <table>
+    <thead><tr><th style="width:42%">Método</th><th style="width:20%">f (cm)</th><th style="width:20%">Error frente a 20 cm</th><th>Usa alturas</th></tr></thead>
+    <tbody>
+      <tr><td>Ecuación del espejo, fila por fila</td><td>19.85 ± 0.05</td><td>0.7 %</td><td>No</td></tr>
+      <tr><td>Ajuste de M contra dᵢ</td><td>21.2 ± 1.6</td><td>6.2 %</td><td>Sí</td></tr>
+      <tr><td>Ajuste con intercepto fijo en 1</td><td>19.8 ± 0.1</td><td>1.1 %</td><td>Sí</td></tr>
+      <tr><td>Recta de 1/dᵢ contra 1/d₀</td><td>19.9 ± 0.3</td><td>0.6 %</td><td>No</td></tr>
+    </tbody>
+  </table>
+  <p>Al fijar el intercepto en 1, que es lo que impone la teoría, el ajuste solo tiene que determinar la pendiente y f baja a 19.8 ± 0.1 cm. La guía no indica la tolerancia del valor del fabricante, así que la diferencia de 0.15 cm entre 19.85 cm y 20 cm no se puede atribuir con seguridad ni al espejo ni a la medición.</p>
+</section>
+
+<section>
+  <h2>7.4. Discusión adicional: la ecuación del espejo sin alturas</h2>
+  <p>Para separar el efecto de la regla, se probó la ecuación del espejo usando solo distancias, con la recta de la sección 3.3. Si la ecuación se cumple, la pendiente de 1/dᵢ contra 1/d₀ tiene que ser −1.</p>
+  <figure class="angosta">
+    <img src="../figuras/inversos_1_di_vs_1_d0.png" alt="Inverso de la distancia imagen contra inverso de la distancia objeto">
+    <figcaption>Figura 6. Inverso de la distancia imagen contra el inverso de la distancia objeto, con su ajuste lineal y la recta teórica de pendiente −1 para f = 20 cm.</figcaption>
+  </figure>
+  <p>La pendiente ajustada es −0.996 ± 0.042, a 0.4 % de −1, con R² = 0.986, y del intercepto sale f = 19.9 ± 0.3 cm. Es una prueba de la ecuación misma, no solo de la distancia focal: los datos tienen la forma que predice la teoría sin depender de ninguna medición de altura.</p>
+  <p>Con estos números se entienden dos espejos de uso diario. Un espejo de maquillaje es cóncavo y se usa con la cara más cerca que el foco: con nuestro espejo y la cara a 10 cm, la ecuación del espejo da una imagen virtual, derecha y dos veces más grande, que es la última fila del Cuadro 2. Los espejos de vigilancia de las tiendas y los retrovisores convexos usan el caso contrario: con nuestra cara convexa, la ecuación da para un objeto a 50 cm un aumento de 0.29, lo que permite ver más escena en el mismo espejo. Como los objetos se ven más pequeños, parecen más lejanos de lo que están, y por eso los retrovisores convexos de los autos llevan la advertencia de que los objetos están más cerca de lo que aparentan.</p>
+
+  <h2>7.5. Fuentes de error y mejoras</h2>
+  <table>
+    <thead><tr><th style="width:38%">Fuente de error</th><th>Efecto y mejora propuesta</th></tr></thead>
+    <tbody>
+      <tr><td>Resolución de la regla sobre hᵢ</td><td>Entre 3 % y 8 % por punto en M. Medir la altura con un calibrador, o fotografiar la pantalla junto a una escala.</td></tr>
+      <tr><td>Criterio de enfoque</td><td>La posición más nítida depende de quien mira, como advierte la guía. Repetir cada enfoque con dos integrantes y promediar.</td></tr>
+      <tr><td>Bordes de la imagen en el papel</td><td>Los extremos de la flecha no son del todo nítidos al marcarlos con lápiz. Usar una pantalla más blanca y marcar con un lápiz de punta fina.</td></tr>
+      <tr><td>Imagen sobre la fuente o detrás de ella</td><td>En d₀ = R y f &lt; d₀ &lt; R la pantalla no puede ubicarse en el eje; de ahí el 10 % de diferencia. Inclinar levemente el espejo para recoger la imagen al costado de la fuente.</td></tr>
+      <tr><td>Rango corto de dᵢ en el Cuadro 1</td><td>Todas las posiciones con d₀ &gt; R dejaron dᵢ entre 25 y 35 cm. Agregar posiciones con f &lt; d₀ &lt; R, donde la imagen sale ampliada, hᵢ es mayor y el error relativo de la regla baja.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="nueva">
+  <h1>8. Integridad de los datos experimentales</h1>
+  <p>Los datos de los cuadros 1 y 2 se transcribieron sin cambios desde la hoja del apéndice C firmada por el encargado del laboratorio, cuya fotografía está en la carpeta evidencias/ del repositorio. Ningún valor fue corregido ni descartado; todo el cálculo ocurre dentro de los notebooks.</p>
+  <p><b>Distancia objeto del caso d₀ &lt; f.</b> En la hoja firmada la última fila del Cuadro 2 dice 15 cm. La medición se hizo con el espejo a 10 cm, como confirman los valores calculados en la misma hoja, dᵢ = −20 cm y M = 2, que solo corresponden a d₀ = 10 cm: con 15 cm habrían sido −60 cm y +4. En el análisis se usó 10 cm.</p>
+  <p><b>Distancia imagen de la fila 1 del Cuadro 1.</b> El primer dígito está repasado en la hoja; el valor registrado es 32 cm.</p>
+  <p><b>Aumento estimado del caso d₀ &lt; f.</b> La casilla quedó vacía en la hoja, por lo que no se reporta un valor observado; solo el teórico, M = +2.</p>
+  <p><b>Fila de d₀ = 52 cm.</b> Su altura de imagen se aleja de la que predicen sus distancias (sección 7.3). Se conservó en todos los ajustes.</p>
+  <p class="cierre">Documento de referencia del Laboratorio 2 — Formación de imágenes en espejos cóncavos y convexos. Grupo 6, Óptica y Ondas, UTEC 2026-II. Elaborado como apoyo a la explicación desarrollada en el video enlazado en la portada.</p>
+</section>
+
+</body>
+</html>
