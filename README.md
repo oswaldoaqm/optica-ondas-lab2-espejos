@@ -1,6 +1,6 @@
 # Laboratorio 2 de Óptica y Ondas: imágenes en espejos esféricos
 
-Datos y análisis del laboratorio "Formación y análisis de imágenes en espejos cóncavos y convexos" del curso Óptica y Ondas (UTEC, ciclo 2026-II). Grupo 6: Christopher Perez Torres, Oswaldo Alejandro Quispe Monzón, Camilo Soto Cristobal y Mauricio Teran Taica.
+Datos y análisis del laboratorio "Formación y análisis de imágenes en espejos cóncavos y convexos" del curso Óptica y Ondas (UTEC, ciclo 2026-II). Grupo 5: Christopher Perez Torres, Oswaldo Alejandro Quispe Monzón, Camilo Soto Cristobal y Mauricio Teran Taica.
 
 Usamos un espejo de doble cara con distancia focal f = 20 cm según el fabricante (R = 40 cm), una fuente con una flecha de 2 cm colocada en 0 cm del riel óptico y una pantalla de papel grueso. Con la cara cóncava medimos diez posiciones para el Cuadro 1 y los cuatro casos del Cuadro 2. Con la cara convexa comprobamos que la imagen no se puede proyectar en la pantalla.
 
