@@ -17,7 +17,7 @@ PIE = (
     '<div style="width:100%; font-family:DejaVu Sans, sans-serif; font-size:7.5pt; color:#5d6b7a;'
     ' margin:0 20mm; padding-top:4pt; border-top:0.6pt solid #d5dbe2; display:flex;'
     ' justify-content:space-between;">'
-    "<span>Laboratorio 2 — Formación de imágenes en espejos cóncavos y convexos · Grupo 6 · UTEC 2026-II</span>"
+    "<span>Laboratorio 2 — Formación de imágenes en espejos cóncavos y convexos · Grupo 5 · UTEC 2026-II</span>"
     '<span class="pageNumber"></span></div>'
 )
 MARCADOR_VIDEO = '<span class="falta">[FALTA: enlace de YouTube]</span>'
@@ -35,7 +35,7 @@ def documento(navegador, video):
         pagina = navegador.new_page()
         pagina.goto(temporal.as_uri(), wait_until="networkidle")
         pagina.pdf(
-            path=str(RAIZ / "documento" / "Lab2-Espejos-Grupo6-Documento.pdf"),
+            path=str(RAIZ / "documento" / "Lab2-Espejos-Grupo5-Documento.pdf"),
             format="A4",
             print_background=True,
             display_header_footer=True,
@@ -54,7 +54,7 @@ def presentacion(navegador):
     pagina.goto(fuente.as_uri(), wait_until="networkidle")
     pagina.evaluate("document.fonts.ready")
     pagina.pdf(
-        path=str(RAIZ / "presentacion" / "Lab2-Espejos-Grupo6-Presentacion.pdf"),
+        path=str(RAIZ / "presentacion" / "Lab2-Espejos-Grupo5-Presentacion.pdf"),
         width="1920px",
         height="1080px",
         print_background=True,
