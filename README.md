@@ -44,8 +44,8 @@ cd notebooks
 jupyter notebook
 ```
 
-Los notebooks leen los datos con rutas relativas, así que hay que abrirlos desde la carpeta `notebooks/`. Para regenerar los PDF hace falta además `python -m playwright install chromium`; luego `python generar_pdfs.py --video <enlace de YouTube>`.
+Los notebooks leen los datos con rutas relativas, así que hay que abrirlos desde la carpeta `notebooks/`. Para regenerar los PDF hace falta además `python -m playwright install chromium`; luego `python generar_pdfs.py`.
 
 ## Enlaces
 
-- Video: [FALTA: enlace de YouTube]
+- Video: https://www.youtube.com/watch?v=ba7g5FD_Aj8
